@@ -7,8 +7,6 @@ from .teste_recipe_base import recipeTestBase
 
 # Render tests
 class RecipeViewsTest(recipeTestBase):
-    def tearDown(self) -> None:
-        return super().tearDown()
 
     def test_recipe_home_views_function_is_correct(self):
         view_home = resolve('/')
@@ -34,7 +32,8 @@ class RecipeViewsTest(recipeTestBase):
 
     # teste de home quando ha conteúdo, criando receita aqui
     def test_recipe_home_template_loads_recipes(self):
-
+        # Need recipe for this test
+        self.make_recipe()
         response = self.client.get(reverse('recipes:home'))
         content = response.content.decode('utf-8')
         response_context_recipes = response.context['recipes']
